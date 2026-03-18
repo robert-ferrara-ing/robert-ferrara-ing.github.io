@@ -169,6 +169,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
 .cliente-stats{font-size:11px;color:#64748b;margin-top:2px}
 .empty{padding:36px 20px;text-align:center;color:#94a3b8;font-size:13px}
 .loading-row{padding:24px;text-align:center;color:#94a3b8;font-size:13px}
+.year-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid #f1f5f9}
+.year-btn{padding:5px 13px;border-radius:20px;border:1px solid #e2e8f0;background:#fff;font-size:12px;cursor:pointer;color:#64748b;transition:all .15s;font-family:inherit}
+.year-btn:hover{background:#f8fafc;border-color:#cbd5e1}
+.year-btn.active{background:#1a56db;color:#fff;border-color:#1a56db;font-weight:600}
+.year-btn.cumul{border-style:dashed}
+.year-btn.cumul.active{background:#0f172a;color:#fff;border-color:#0f172a}
 .mob-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:15}
 .mob-ov.open{display:block}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1e293b;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:200;transition:transform .3s;white-space:nowrap}
@@ -204,7 +210,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
 <div class="app" id="app-content" style="display:none">
 <div class="mob-ov" id="mob-ov" onclick="closeSb()"></div>
 <div class="sidebar" id="sidebar">
-  <div class="logo"><div class="logo-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="3"/><line x1="8" y1="3" x2="8" y2="21"/><line x1="2" y1="9" x2="20" y2="9"/></svg></div><div><div class="logo-text">Gestione Ufficio</div><div class="logo-sub" id="sync-label">Connessione...</div></div><div class="sync-dot sync" id="sync-dot"></div></div>
+  <div class="logo"><div class="logo-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="3"/><line x1="8" y1="3" x2="8" y2="21"/><line x1="2" y1="9" x2="20" y2="9"/></svg></div><div><div class="logo-text" style="font-size:13px;font-weight:600;color:rgba(255,255,255,.65)">Ingegneria RF</div><div class="logo-sub" id="sync-label" style="font-size:10px;color:#fff">Gestione Ufficio</div></div><div class="sync-dot sync" id="sync-dot"></div></div>
   <div class="nav-sec">Principale</div>
   <div class="nav-item active" onclick="goSec('dashboard',this)" data-section="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</div>
   <div class="nav-item" onclick="goSec('statistiche',this)" data-section="statistiche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Statistiche</div>
@@ -247,6 +253,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
 
     <!-- STATISTICHE -->
     <div class="section" id="sec-statistiche">
+      <div class="list-wrap" style="margin-bottom:16px">
+        <div class="year-bar" id="ybar-stat"></div>
+      </div>
       <div class="stat-grid">
         <div class="stat-card"><div class="stat-v" id="st-fatturato">€0</div><div class="stat-l">Fatturato totale</div><div class="stat-sub" style="color:#10b981" id="st-fat-sub">–</div></div>
         <div class="stat-card"><div class="stat-v" id="st-pipeline">€0</div><div class="stat-l">Pipeline preventivi</div><div class="stat-sub" style="color:#8b5cf6" id="st-pip-sub">–</div></div>
@@ -273,6 +282,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
     <!-- PREVENTIVI -->
     <div class="section" id="sec-preventivi">
       <div class="list-wrap">
+        <div class="year-bar" id="ybar-p"></div>
         <div class="list-head"><span class="list-ttl">Elenco preventivi</span><div class="list-head-r"><select class="filter-sel" onchange="filterByStato('list-p','esito',this.value)"><option value="">Tutti</option><option>In Attesa</option><option>Accettato</option><option>Rifiutato</option></select><input class="srch" placeholder="Cerca..." oninput="filterList('list-p',this.value)"></div></div>
         <div id="list-p"><div class="loading-row">Caricamento...</div></div>
       </div>
@@ -281,6 +291,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
     <!-- COMMESSE -->
     <div class="section" id="sec-commesse">
       <div class="list-wrap">
+        <div class="year-bar" id="ybar-c"></div>
         <div class="list-head"><span class="list-ttl">Elenco commesse</span><div class="list-head-r"><select class="filter-sel" onchange="filterByStato('list-c','stato',this.value)"><option value="">Tutti</option><option>In Corso</option><option>Completata</option><option>Annullata</option></select><input class="srch" placeholder="Cerca..." oninput="filterList('list-c',this.value)"></div></div>
         <div id="list-c"><div class="loading-row">Caricamento...</div></div>
       </div>
@@ -289,6 +300,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
     <!-- FATTURE -->
     <div class="section" id="sec-fatture">
       <div class="list-wrap">
+        <div class="year-bar" id="ybar-f"></div>
         <div class="list-head"><span class="list-ttl">Elenco fatture</span><div class="list-head-r"><select class="filter-sel" onchange="filterByStato('list-f','stato',this.value)"><option value="">Tutti</option><option>Da Incassare</option><option>Saldata</option><option>Sollecitata</option></select><input class="srch" placeholder="Cerca..." oninput="filterList('list-f',this.value)"></div></div>
         <div id="list-f"><div class="loading-row">Caricamento...</div></div>
       </div>
@@ -608,6 +620,115 @@ function renderStats(){
   const pipMax=Math.max(...pip.map(s=>DB.p.filter(x=>x.esito==='In Attesa'&&s.f(x)).reduce((a,x)=>a+Number(x.importo||0),0)),1);
   document.getElementById('st-pipeline-chart').innerHTML=pip.map(s=>{const val=DB.p.filter(x=>x.esito==='In Attesa'&&s.f(x)).reduce((a,x)=>a+Number(x.importo||0),0);return`<div class="bar-row"><div class="bar-lbl">${s.l}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(val/pipMax*100)}%;background:${s.c}"></div></div><div class="bar-n" style="width:90px;font-size:10px">${fe(val)}</div></div>`}).join('');
 }
+
+// FILTRO ANNI
+let selAnno = {p: 'all', c: 'all', f: 'all', stat: new Date().getFullYear()};
+
+function getAnniFromDB(k, campoData){
+  const anni = new Set();
+  DB[k].forEach(r => {
+    const d = r[campoData];
+    if(d) {
+      const y = String(d).substring(0,4);
+      if(y && y.length===4 && !isNaN(y)) anni.add(parseInt(y));
+    }
+  });
+  // Aggiungi sempre anni dal 2026 in poi fino ad oggi
+  const now = new Date().getFullYear();
+  for(let y=2026; y<=now; y++) anni.add(y);
+  return [...anni].sort();
+}
+
+function buildYearBar(barId, k, campoData, selKey, onchange){
+  const el = document.getElementById(barId);
+  if(!el) return;
+  const anni = getAnniFromDB(k, campoData);
+  el.innerHTML = '';
+  // Pulsante "Tutti"
+  const btnAll = document.createElement('button');
+  btnAll.className = 'year-btn cumul' + (selAnno[selKey]==='all'?' active':'');
+  btnAll.textContent = 'Tutti';
+  btnAll.onclick = () => { selAnno[selKey]='all'; onchange(); buildYearBar(barId,k,campoData,selKey,onchange); };
+  el.appendChild(btnAll);
+  anni.forEach(y => {
+    const btn = document.createElement('button');
+    btn.className = 'year-btn' + (selAnno[selKey]===y?' active':'');
+    btn.textContent = String(y);
+    btn.onclick = () => { selAnno[selKey]=y; onchange(); buildYearBar(barId,k,campoData,selKey,onchange); };
+    el.appendChild(btn);
+  });
+}
+
+function filterByAnno(items, campo, anno){
+  if(anno==='all') return items;
+  return items.filter(r => r[campo] && String(r[campo]).substring(0,4) === String(anno));
+}
+
+// Override render con filtro anno
+const _renderP = renderP;
+window.renderP = function(){
+  buildYearBar('ybar-p','p','data_invio','p', renderP);
+  const el=document.getElementById('list-p');
+  const items = filterByAnno(DB.p, 'data_invio', selAnno.p);
+  if(!items.length){el.innerHTML='<div class="empty">Nessun preventivo'+(selAnno.p!=='all'?' per il '+selAnno.p:'')+'</div>';return}
+  el.innerHTML=items.map((r,i)=>{const idx=DB.p.indexOf(r);return`<div class="card-item" data-esito="${r.esito||''}"><div class="card-main" onclick="det_p(${idx})"><div class="card-name">${r.cliente||'—'} <span style="font-size:11px;color:#94a3b8;font-weight:400">${r.id_prev||''}</span></div><div class="card-sub">${r.prestazione||'—'} · ${fe(r.importo)} · ${fd(r.data_invio)}</div><div style="margin-top:6px;display:flex;gap:5px;align-items:center">${pill(r.esito||'In Attesa')}<span style="font-size:11px;color:#94a3b8">${r.prob_pct?r.prob_pct+'%':''}</span></div></div>${iconsHTML('p',idx,r)}</div>`}).join('');
+};
+
+const _renderC = renderC;
+window.renderC = function(){
+  buildYearBar('ybar-c','c','consegna','c', renderC);
+  const el=document.getElementById('list-c');
+  const items = filterByAnno(DB.c, 'consegna', selAnno.c);
+  if(!items.length){el.innerHTML='<div class="empty">Nessuna commessa'+(selAnno.c!=='all'?' per il '+selAnno.c:'')+'</div>';return}
+  el.innerHTML=items.map((r,i)=>{const idx=DB.c.indexOf(r);return`<div class="card-item" data-stato="${r.stato||''}"><div class="card-main" onclick="det_c(${idx})"><div class="card-name">${r.cliente||'—'} <span style="font-size:11px;color:#94a3b8;font-weight:400">${r.id_comm||''}</span></div><div class="card-sub">${r.prestazione||'—'} · ${fe(r.importo)} · Cons. ${fd(r.consegna)}</div><div style="margin-top:6px">${pill(r.stato||'In Corso')}</div></div>${iconsHTML('c',idx,r)}</div>`}).join('');
+};
+
+const _renderF = renderF;
+window.renderF = function(){
+  buildYearBar('ybar-f','f','data_emissione','f', renderF);
+  const el=document.getElementById('list-f');
+  const items = filterByAnno(DB.f, 'data_emissione', selAnno.f);
+  if(!items.length){el.innerHTML='<div class="empty">Nessuna fattura'+(selAnno.f!=='all'?' per il '+selAnno.f:'')+'</div>';return}
+  el.innerHTML=items.map((r,i)=>{const idx=DB.f.indexOf(r);return`<div class="card-item" data-stato="${r.stato||''}"><div class="card-main" onclick="det_f(${idx})"><div class="card-name">${r.cliente||'—'} <span style="font-size:11px;color:#94a3b8;font-weight:400">${r.num_fatt||''}</span></div><div class="card-sub">${fe(r.importo)} · Scad. ${fd(r.scadenza_pag)}</div><div style="margin-top:6px">${pill(r.stato||'Da Incassare')}</div></div>${iconsHTML('f',idx,r)}</div>`}).join('');
+};
+
+const _renderStats = renderStats;
+window.renderStats = function(){
+  buildYearBar('ybar-stat','f','data_emissione','stat', renderStats);
+  const anno = selAnno.stat;
+  const isCumul = anno === 'all';
+  const fp = isCumul ? DB.p : filterByAnno(DB.p,'data_invio',anno);
+  const fc = isCumul ? DB.c : filterByAnno(DB.c,'consegna',anno);
+  const ff = isCumul ? DB.f : filterByAnno(DB.f,'data_emissione',anno);
+  const fatturato=ff.filter(x=>x.stato==='Saldata').reduce((s,x)=>s+Number(x.importo||0),0);
+  const daInc=ff.filter(x=>x.stato==='Da Incassare'||x.stato==='Sollecitata').reduce((s,x)=>s+Number(x.importo||0),0);
+  const pipeline=fp.filter(x=>x.esito==='In Attesa').reduce((s,x)=>s+Number(x.importo||0)*(Number(x.prob_pct||50)/100),0);
+  const totPrev=fp.length;
+  const accPrev=fp.filter(x=>x.esito==='Accettato').length;
+  const conv=totPrev>0?Math.round(accPrev/totPrev*100):0;
+  const clientiUniq=new Set([...DB.r,...DB.p,...DB.c,...DB.f].map(x=>x.cliente).filter(Boolean)).size;
+  document.getElementById('st-fatturato').textContent=fe(fatturato);
+  document.getElementById('st-fat-sub').textContent=ff.filter(x=>x.stato==='Saldata').length+' fatture saldate';
+  document.getElementById('st-pipeline').textContent=fe(pipeline);
+  document.getElementById('st-pip-sub').textContent=fp.filter(x=>x.esito==='In Attesa').length+' preventivi in attesa';
+  document.getElementById('st-conv').textContent=conv+'%';
+  document.getElementById('st-conv-sub').textContent=accPrev+' accettati su '+totPrev;
+  document.getElementById('st-daincassare').textContent=fe(daInc);
+  document.getElementById('st-inc-sub').textContent=ff.filter(x=>x.stato==='Da Incassare'||x.stato==='Sollecitata').length+' fatture aperte';
+  document.getElementById('st-commesse-corso').textContent=fc.filter(x=>x.stato==='In Corso').length;
+  document.getElementById('st-comm-sub').textContent='Valore: '+fe(fc.filter(x=>x.stato==='In Corso').reduce((s,x)=>s+Number(x.importo||0),0));
+  document.getElementById('st-clienti').textContent=clientiUniq;
+  document.getElementById('st-cli-sub').textContent='da '+DB.r.length+' richieste totali';
+  const pS=[{l:'In Attesa',c:'#f59e0b'},{l:'Accettato',c:'#10b981'},{l:'Rifiutato',c:'#ef4444'}];
+  const pMax=Math.max(...pS.map(s=>fp.filter(x=>x.esito===s.l).length),1);
+  document.getElementById('st-ch-prev').innerHTML=pS.map(s=>{const n=fp.filter(x=>x.esito===s.l).length;const val=fp.filter(x=>x.esito===s.l).reduce((a,x)=>a+Number(x.importo||0),0);return`<div class="bar-row"><div class="bar-lbl">${s.l}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/pMax*100)}%;background:${s.c}"></div></div><div class="bar-n" style="width:80px;font-size:10px">${n} · ${fe(val)}</div></div>`}).join('');
+  const fS=[{l:'Da Incassare',c:'#f59e0b'},{l:'Saldata',c:'#10b981'},{l:'Sollecitata',c:'#ef4444'}];
+  const fMax=Math.max(...fS.map(s=>ff.filter(x=>x.stato===s.l).length),1);
+  document.getElementById('st-ch-fatt').innerHTML=fS.map(s=>{const n=ff.filter(x=>x.stato===s.l).length;const val=ff.filter(x=>x.stato===s.l).reduce((a,x)=>a+Number(x.importo||0),0);return`<div class="bar-row"><div class="bar-lbl">${s.l}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/fMax*100)}%;background:${s.c}"></div></div><div class="bar-n" style="width:80px;font-size:10px">${n} · ${fe(val)}</div></div>`}).join('');
+  const pip=[{l:'Alta (>70%)',c:'#10b981',f:p=>Number(p.prob_pct||0)>=70},{l:'Media (40-70%)',c:'#f59e0b',f:p=>Number(p.prob_pct||0)>=40&&Number(p.prob_pct||0)<70},{l:'Bassa (<40%)',c:'#ef4444',f:p=>Number(p.prob_pct||0)<40}];
+  const pipMax=Math.max(...pip.map(s=>fp.filter(x=>x.esito==='In Attesa'&&s.f(x)).reduce((a,x)=>a+Number(x.importo||0),0)),1);
+  document.getElementById('st-pipeline-chart').innerHTML=pip.map(s=>{const val=fp.filter(x=>x.esito==='In Attesa'&&s.f(x)).reduce((a,x)=>a+Number(x.importo||0),0);return`<div class="bar-row"><div class="bar-lbl">${s.l}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(val/pipMax*100)}%;background:${s.c}"></div></div><div class="bar-n" style="width:90px;font-size:10px">${fe(val)}</div></div>`}).join('');
+};
 
 startListeners=startListeners;
 </script>
