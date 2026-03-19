@@ -175,6 +175,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
 .year-btn.active{background:#1a56db;color:#fff;border-color:#1a56db;font-weight:600}
 .year-btn.cumul{border-style:dashed}
 .year-btn.cumul.active{background:#0f172a;color:#fff;border-color:#0f172a}
+
+.att-item{display:flex;align-items:flex-start;gap:12px;padding:12px 18px;border-bottom:1px solid #f8fafc;transition:background .1s}
+.att-item:last-child{border-bottom:none}
+.att-item:hover{background:#fafbfc}
+.att-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.att-info{flex:1;min-width:0}
+.att-nome{font-size:13px;font-weight:600;color:#1e293b}
+.att-sub{font-size:11px;color:#64748b;margin-top:2px}
+.att-right{display:flex;align-items:center;gap:5px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.check-btn{width:22px;height:22px;border-radius:6px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.check-btn:hover{border-color:#10b981}
+.check-btn.done{background:#10b981;border-color:#10b981}
+.p-inarcassa{background:#dbeafe;color:#1e40af}
+.p-fisco{background:#fef9c3;color:#854d0e}
+.p-amm{background:#dcfce7;color:#166534}
+.p-scaduta{background:#fee2e2;color:#991b1b}
+.p-prossima{background:#ffedd5;color:#9a3412}
+.p-fatto{background:#f1f5f9;color:#475569}
+.drive-box{background:#f8fafc;border-radius:9px;padding:12px 14px;margin-top:4px;display:flex;align-items:center;gap:10px}
+.drive-link{color:#1a56db;font-size:12.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.drive-link:hover{text-decoration:underline}
+.tot-box{background:#f8fafc;border-radius:9px;padding:13px 15px;margin-top:4px}
+.tot-row{display:flex;justify-content:space-between;font-size:12.5px;color:#64748b;padding:3px 0}
+.tot-finale{font-size:15px;font-weight:700;color:#1e293b;border-top:1px solid #e2e8f0;margin-top:6px;padding-top:8px;display:flex;justify-content:space-between}
+@media(max-width:700px){
+  .att-right{flex-direction:column;align-items:flex-end}
+  .topbar-r .sync-status{display:none}
+}
 .mob-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:15}
 .mob-ov.open{display:block}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1e293b;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:200;transition:transform .3s;white-space:nowrap}
@@ -220,6 +248,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
   <div class="nav-item" onclick="goSec('commesse',this)" data-section="commesse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Commesse<span class="nbadge" id="nb-c">0</span></div>
   <div class="nav-item" onclick="goSec('fatture',this)" data-section="fatture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Fatture<span class="nbadge" id="nb-f">0</span></div>
   <div class="nav-item" onclick="goSec('scadenze',this)" data-section="scadenze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Scadenze<span class="nbadge" id="nb-s">0</span></div>
+  <div class="nav-item" onclick="goSec('attivita',this)" data-section="attivita"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Attività<span class="nbadge" id="nb-a">0</span></div>
   <div class="nav-sec">Archivio</div>
   <div class="nav-item" onclick="goSec('clienti',this)" data-section="clienti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Clienti</div>
   <div class="user-bar"><img class="user-avatar" id="user-avatar" src="" alt=""><span class="user-name" id="user-name">...</span><button class="btn-logout" onclick="logoutGoogle()" title="Esci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></div>
@@ -308,6 +337,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;f
 
     <!-- SCADENZE -->
     <div class="section" id="sec-scadenze"><div class="list-wrap"><div class="list-head"><span class="list-ttl">Commesse in scadenza</span></div><div id="list-s"></div></div></div>
+    <div class="section" id="sec-attivita">
+      <div class="list-wrap">
+        <div class="list-head">
+          <span class="list-ttl">Elenco attività</span>
+          <div class="list-head-r">
+            <select class="filter-sel" id="att-filter-cat" onchange="window.renderAttivita&&window.renderAttivita()"><option value="">Tutte le categorie</option><option>Inarcassa</option><option>Fisco</option><option>Amministrazione</option><option>Altro</option></select>
+            <select class="filter-sel" id="att-filter-stato" onchange="window.renderAttivita&&window.renderAttivita()"><option value="">Tutti gli stati</option><option>Da fare</option><option>Fatto</option></select>
+            <input class="srch" placeholder="Cerca..." oninput="window.filterList&&filterList('list-a',this.value)">
+          </div>
+        </div>
+        <div id="list-a"><div class="loading-row">Caricamento...</div></div>
+      </div>
+    </div>
 
     <!-- CLIENTI -->
     <div class="section" id="sec-clienti">
@@ -378,10 +420,10 @@ function setSyncStatus(s){
   if(txt)txt.innerHTML=`<span style="width:8px;height:8px;border-radius:50%;display:inline-block;background:${x.bg};margin-right:4px"></span>${x.t}`;
 }
 
-let DB={r:[],p:[],c:[],f:[]};
+let DB={r:[],p:[],c:[],f:[],a:[]};
 let curSec='dashboard',editIdx=null,editSec=null;
-const colMap={r:'richieste',p:'preventivi',c:'commesse',f:'fatture'};
-const secTitles={dashboard:'Dashboard',statistiche:'Statistiche',richieste:'Richieste',preventivi:'Preventivi',commesse:'Commesse',fatture:'Fatture',scadenze:'Commesse in Scadenza',clienti:'Anagrafica Clienti'};
+const colMap={r:'richieste',p:'preventivi',c:'commesse',f:'fatture',a:'attivita'};
+const secTitles={dashboard:'Dashboard',statistiche:'Statistiche',richieste:'Richieste',preventivi:'Preventivi',commesse:'Commesse',fatture:'Fatture',scadenze:'Commesse in Scadenza',attivita:'Attività',clienti:'Anagrafica Clienti'};
 
 function fd(d){if(!d)return'—';if(d&&d.toDate)d=d.toDate().toISOString().split('T')[0];const p=String(d).split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:d}
 function fe(n){return'€'+Number(n||0).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2})}
@@ -392,11 +434,12 @@ function pill(s){return`<span class="pill ${pillClass[s]||'p-annullata'}">${s||'
 
 function startListeners(){
   setSyncStatus('sync');
-  let loaded={r:false,p:false,c:false,f:false};
+  let loaded={r:false,p:false,c:false,f:false,a:false};
   function chk(){if(Object.values(loaded).every(Boolean)){setSyncStatus('ok');renderDash();}}
-  ['r','p','c','f'].forEach(k=>{
+  ['r','p','c','f','a'].forEach(k=>{
     onSnapshot(collection(db,colMap[k]),snap=>{
       DB[k]=snap.docs.map(d=>({...d.data(),_id:d.id}));
+      window.DB=DB;
       loaded[k]=true;chk();upBadges();
       if(curSec==='dashboard')renderDash();
       else if(curSec==='statistiche')renderStats();
@@ -405,12 +448,16 @@ function startListeners(){
       else if(curSec==='commesse'&&k==='c')renderC();
       else if(curSec==='fatture'&&k==='f')renderF();
       else if(curSec==='scadenze'&&k==='c')renderS();
+      else if(curSec==='attivita'&&k==='a')window.renderAttivita&&window.renderAttivita();
       else if(curSec==='clienti')renderClienti();
     },()=>{setSyncStatus('err');});
   });
 }
 
-async function addItem(k,obj){setSyncStatus('sync');try{const r=await addDoc(collection(db,colMap[k]),{...obj,allegati:[],createdAt:serverTimestamp()});showToast('✅ Salvato');return r.id;}catch(e){setSyncStatus('err');showToast('❌ Errore');}}
+window.DB = DB;
+window.updateItemGlobal = async function(k,_id,obj){ await updateItem(k,_id,obj); };
+
+async function addItem(k,obj){setSyncStatus('sync');try{const extra=k==='a'?{}:{allegati:[]};const r=await addDoc(collection(db,colMap[k]),{...obj,...extra,createdAt:serverTimestamp()});showToast('✅ Salvato');return r.id;}catch(e){setSyncStatus('err');showToast('❌ Errore');}}
 async function updateItem(k,_id,obj){setSyncStatus('sync');try{await updateDoc(doc(db,colMap[k],_id),obj);showToast('✅ Aggiornato');}catch(e){setSyncStatus('err');showToast('❌ Errore');}}
 async function deleteItem(k,_id){setSyncStatus('sync');try{await deleteDoc(doc(db,colMap[k],_id));showToast('🗑 Eliminato');}catch(e){setSyncStatus('err');showToast('❌ Errore');}}
 
@@ -423,7 +470,7 @@ window.goSec=function(s,el){
   document.getElementById('sec-'+s).classList.add('active');
   if(el)el.classList.add('active');else{const n=document.querySelector('[data-section='+s+']');if(n)n.classList.add('active');}
   document.getElementById('page-ttl').textContent=secTitles[s];
-  const hasAdd=['richieste','preventivi','commesse','fatture'].includes(s);
+  const hasAdd=['richieste','preventivi','commesse','fatture','attivita'].includes(s);
   const hasExport=['richieste','preventivi','commesse','fatture'].includes(s);
   document.getElementById('add-btn').style.display=hasAdd?'flex':'none';
   document.getElementById('export-btn').style.display=hasExport?'flex':'none';
@@ -434,6 +481,7 @@ window.goSec=function(s,el){
   else if(s==='commesse')window.renderC ? window.renderC() : renderC();
   else if(s==='fatture')window.renderF ? window.renderF() : renderF();
   else if(s==='scadenze')renderS();
+  else if(s==='attivita')window.renderAttivita&&window.renderAttivita();
   else if(s==='clienti')renderClienti();
   if(window.innerWidth<=700)closeSb();
 };
@@ -442,6 +490,9 @@ window.closeSb=()=>{document.getElementById('sidebar').classList.remove('open');
 
 function upBadges(){
   ['r','p','c','f'].forEach(k=>document.getElementById('nb-'+k).textContent=DB[k].length);
+  const now2=new Date();now2.setHours(0,0,0,0);
+  const attScad=DB.a.filter(a=>a.stato!=='Fatto'&&a.scadenza&&(new Date(a.scadenza)-now2)/86400000<=7).length;
+  const nbA=document.getElementById('nb-a');if(nbA){nbA.textContent=DB.a.filter(x=>x.stato!=='Fatto').length;nbA.style.background=attScad>0?'#ef4444':'rgba(255,255,255,.25)';}
   const now=new Date();now.setHours(0,0,0,0);
   document.getElementById('nb-s').textContent=DB.c.filter(c=>c.consegna&&c.stato==='In Corso'&&(new Date(c.consegna)-now)/86400000<=30).length;
 }
@@ -522,7 +573,8 @@ window.det_r=function(i){const r=DB.r[i];const relP=DB.p.filter(x=>x.id_rich===r
 
 window.det_p=function(i){const r=DB.p[i];const rich=DB.r.find(x=>x._id===r.id_rich);const relC=DB.c.filter(x=>x.id_prev===r._id);openDet(`<div class="detail-header"><div><div style="font-size:11px;color:#94a3b8;margin-bottom:3px;font-weight:600">PREVENTIVO · ${r.id_prev||'—'}</div><div class="detail-title">${r.cliente||'—'}</div></div><button class="detail-close" onclick="closeDet()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="detail-body"><div class="fields-2"><div class="field-row"><div class="field-lbl">Cliente</div><div class="field-val">${r.cliente||'—'}</div></div><div class="field-row"><div class="field-lbl">Data invio</div><div class="field-val">${fd(r.data_invio)}</div></div></div><div class="field-row"><div class="field-lbl">Prestazione</div><div class="field-val">${r.prestazione||'—'}</div></div><div class="fields-2"><div class="field-row"><div class="field-lbl">Importo</div><div class="field-val" style="font-size:18px;font-weight:700">${fe(r.importo)}</div></div><div class="field-row"><div class="field-lbl">Probabilità</div><div class="field-val">${r.prob_pct||0}%<div class="progress-bar"><div class="progress-fill" style="width:${r.prob_pct||0}%"></div></div></div></div></div><div class="fields-2"><div class="field-row"><div class="field-lbl">Esito</div><div class="field-val">${pill(r.esito)}</div></div><div class="field-row"><div class="field-lbl">Richiesta origine</div><div class="field-val">${rich?`<span class="field-link" onclick="closeDet();goSec('richieste');setTimeout(()=>det_r(${DB.r.indexOf(rich)}),150)">${rich.id_rich} · ${rich.cliente} →</span>`:'—'}</div></div></div><div class="field-row"><div class="field-lbl">Note</div><div class="field-val">${r.note||'—'}</div></div><div class="section-sep">Commesse collegate (${relC.length})</div><div class="related-box">${relC.length?relC.map(c=>`<div class="related-item"><span><b>${c.id_comm||'—'}</b> · ${c.prestazione||'—'}</span><div style="display:flex;gap:6px;align-items:center">${pill(c.stato)}<button class="btn btn-sm" onclick="closeDet();goSec('commesse');setTimeout(()=>det_c(${DB.c.indexOf(c)}),150)">Apri →</button></div></div>`).join(''):'<div style="font-size:12px;color:#94a3b8;padding:4px 0">Nessuna commessa</div>'}</div>${allegatiHTML('p',r)}</div><div class="detail-actions"><button class="btn" onclick="closeDet();openEdit('p',${i})">✏ Modifica</button><button class="btn btn-primary" onclick="closeDet();openFormPre('p',${i})">+ Crea Commessa</button></div>`);};
 
-window.det_c=function(i){const r=DB.c[i];const prev=DB.p.find(x=>x._id===r.id_prev);const relF=DB.f.filter(x=>x.id_comm===r._id);openDet(`<div class="detail-header"><div><div style="font-size:11px;color:#94a3b8;margin-bottom:3px;font-weight:600">COMMESSA · ${r.id_comm||'—'}</div><div class="detail-title">${r.cliente||'—'}</div></div><button class="detail-close" onclick="closeDet()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="detail-body"><div class="fields-2"><div class="field-row"><div class="field-lbl">Cliente</div><div class="field-val">${r.cliente||'—'}</div></div><div class="field-row"><div class="field-lbl">Consegna</div><div class="field-val">${fd(r.consegna)}</div></div></div><div class="field-row"><div class="field-lbl">Prestazione</div><div class="field-val">${r.prestazione||'—'}</div></div><div class="fields-2"><div class="field-row"><div class="field-lbl">Importo</div><div class="field-val" style="font-size:18px;font-weight:700">${fe(r.importo)}</div></div><div class="field-row"><div class="field-lbl">Stato</div><div class="field-val">${pill(r.stato)}</div></div></div><div class="field-row"><div class="field-lbl">Preventivo origine</div><div class="field-val">${prev?`<span class="field-link" onclick="closeDet();goSec('preventivi');setTimeout(()=>det_p(${DB.p.indexOf(prev)}),150)">${prev.id_prev} · ${prev.cliente} →</span>`:'—'}</div></div><div class="field-row"><div class="field-lbl">Note</div><div class="field-val">${r.note||'—'}</div></div><div class="section-sep">Fatture collegate (${relF.length})</div><div class="related-box">${relF.length?relF.map(f=>`<div class="related-item"><span><b>${f.num_fatt||'—'}</b> · ${fe(f.importo)}</span><div style="display:flex;gap:6px;align-items:center">${pill(f.stato)}<button class="btn btn-sm" onclick="closeDet();goSec('fatture');setTimeout(()=>det_f(${DB.f.indexOf(f)}),150)">Apri →</button></div></div>`).join(''):'<div style="font-size:12px;color:#94a3b8;padding:4px 0">Nessuna fattura</div>'}</div>${allegatiHTML('c',r)}</div><div class="detail-actions"><button class="btn" onclick="closeDet();openEdit('c',${i})">✏ Modifica</button><button class="btn btn-primary" onclick="closeDet();openFormPre('c',${i})">+ Crea Fattura</button></div>`);};
+window.det_c=function(i){const r=DB.c[i];const prev=DB.p.find(x=>x._id===r.id_prev);const relF=DB.f.filter(x=>x.id_comm===r._id);
+  const driveHTML = r.drive_url ? `<div class="field-row"><div class="field-lbl">Cartella Google Drive</div><div class="field-val"><div class="drive-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9l4-7h10l4 7-9 5z" fill="#4285f4"/><path d="M3 9l5 9h8l5-9z" fill="#34a853" opacity=".7"/><path d="M8 18l-5-9h6l5 9z" fill="#fbbc04" opacity=".8"/></svg><a href="${r.drive_url}" target="_blank" class="drive-link">Apri cartella Drive →</a></div></div></div>` : '';openDet(`<div class="detail-header"><div><div style="font-size:11px;color:#94a3b8;margin-bottom:3px;font-weight:600">COMMESSA · ${r.id_comm||'—'}</div><div class="detail-title">${r.cliente||'—'}</div></div><button class="detail-close" onclick="closeDet()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="detail-body"><div class="fields-2"><div class="field-row"><div class="field-lbl">Cliente</div><div class="field-val">${r.cliente||'—'}</div></div><div class="field-row"><div class="field-lbl">Consegna</div><div class="field-val">${fd(r.consegna)}</div></div></div><div class="field-row"><div class="field-lbl">Prestazione</div><div class="field-val">${r.prestazione||'—'}</div></div><div class="fields-2"><div class="field-row"><div class="field-lbl">Importo</div><div class="field-val" style="font-size:18px;font-weight:700">${fe(r.importo)}</div></div><div class="field-row"><div class="field-lbl">Stato</div><div class="field-val">${pill(r.stato)}</div></div></div><div class="field-row"><div class="field-lbl">Preventivo origine</div><div class="field-val">${prev?`<span class="field-link" onclick="closeDet();goSec('preventivi');setTimeout(()=>det_p(${DB.p.indexOf(prev)}),150)">${prev.id_prev} · ${prev.cliente} →</span>`:'—'}</div></div><div class="field-row"><div class="field-lbl">Note</div><div class="field-val">${r.note||'—'}</div></div><div class="section-sep">Fatture collegate (${relF.length})</div><div class="related-box">${relF.length?relF.map(f=>`<div class="related-item"><span><b>${f.num_fatt||'—'}</b> · ${fe(f.importo)}</span><div style="display:flex;gap:6px;align-items:center">${pill(f.stato)}<button class="btn btn-sm" onclick="closeDet();goSec('fatture');setTimeout(()=>det_f(${DB.f.indexOf(f)}),150)">Apri →</button></div></div>`).join(''):'<div style="font-size:12px;color:#94a3b8;padding:4px 0">Nessuna fattura</div>'}</div>${allegatiHTML('c',r)}</div><div class="detail-actions"><button class="btn" onclick="closeDet();openEdit('c',${i})">✏ Modifica</button><button class="btn btn-primary" onclick="closeDet();openFormPre('c',${i})">+ Crea Fattura</button></div>`);};
 
 window.det_f=function(i){const r=DB.f[i];const comm=DB.c.find(x=>x._id===r.id_comm);openDet(`<div class="detail-header"><div><div style="font-size:11px;color:#94a3b8;margin-bottom:3px;font-weight:600">FATTURA · ${r.num_fatt||'—'}</div><div class="detail-title">${r.cliente||'—'}</div></div><button class="detail-close" onclick="closeDet()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="detail-body"><div class="fields-2"><div class="field-row"><div class="field-lbl">Cliente</div><div class="field-val">${r.cliente||'—'}</div></div><div class="field-row"><div class="field-lbl">Data emissione</div><div class="field-val">${fd(r.data_emissione)}</div></div></div><div class="fields-2"><div class="field-row"><div class="field-lbl">Importo</div><div class="field-val" style="font-size:18px;font-weight:700">${fe(r.importo)}</div></div><div class="field-row"><div class="field-lbl">Scad. pagamento</div><div class="field-val">${fd(r.scadenza_pag)}</div></div></div><div class="fields-2"><div class="field-row"><div class="field-lbl">Stato</div><div class="field-val">${pill(r.stato)}</div></div><div class="field-row"><div class="field-lbl">Commessa origine</div><div class="field-val">${comm?`<span class="field-link" onclick="closeDet();goSec('commesse');setTimeout(()=>det_c(${DB.c.indexOf(comm)}),150)">${comm.id_comm} · ${comm.cliente} →</span>`:'—'}</div></div></div><div class="field-row"><div class="field-lbl">Note</div><div class="field-val">${r.note||'—'}</div></div>${allegatiHTML('f',r)}</div><div class="detail-actions"><button class="btn" onclick="closeDet();openEdit('f',${i})">✏ Modifica</button><button class="btn btn-primary" onclick="closeDet()">Chiudi</button></div>`);};
 
@@ -532,7 +584,7 @@ window.closeForm=()=>{document.getElementById('form-ov').classList.remove('open'
 document.getElementById('form-ov').addEventListener('click',function(e){if(e.target===this)window.closeForm()});
 window.openForm=()=>{editIdx=null;const k={richieste:'r',preventivi:'p',commesse:'c',fatture:'f'}[curSec];if(!k)return;editSec=k;showForm(k,null,false);};
 window.openEdit=(k,i)=>{editIdx=i;editSec=k;showForm(k,DB[k][i],false);};
-window.openFormPre=(fromK,fromI)=>{
+window.openFormPre=(fromK,fromI)=>{ if(fromK==='a'){return;}
   const src=DB[fromK][fromI];
   if(fromK==='r'){
     editIdx=null;editSec='p';
@@ -544,16 +596,45 @@ window.openFormPre=(fromK,fromI)=>{
 
 function showForm(k,d,isNew){
   d=d||{};const isEdit=editIdx!==null&&!isNew;
-  const nn={r:'RCH-'+String(DB.r.length+1).padStart(3,'0'),p:'PRV-'+String(DB.p.length+1).padStart(3,'0'),c:'COM-'+String(DB.c.length+1).padStart(3,'0'),f:'FAT-'+String(DB.f.length+1).padStart(3,'0')};
+  const yr=new Date().getFullYear();
+  function nextNum(k,prefix){const yr2=new Date().getFullYear();const items=DB[k].filter(x=>{const id=x['id_'+({r:'rich',p:'prev',c:'comm',f:'fatt',a:'att'}[k])||'id']||'';return id.includes('-'+yr2+'-');});return prefix+'-'+yr2+'-'+String(items.length+1).padStart(3,'0');}
+  const nn={r:nextNum('r','RCH'),p:nextNum('p','PRV'),c:nextNum('c','COM'),f:nextNum('f','FAT'),a:nextNum('a','ATT')};
   const sel=(opts,val)=>opts.map(o=>`<option${o===val?' selected':''}>${o}</option>`).join('');
   const preNote=isNew&&!isEdit?`<div style="background:#f0f7ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 12px;font-size:12px;color:#1e40af;margin-bottom:13px">⚡ Campi precompilati automaticamente dalla richiesta</div>`:'';
   const forms={
     r:`<div class="modal-ttl">${isEdit?'Modifica':'Nuova'} Richiesta</div><div class="form-2"><div class="form-row"><label class="form-lbl">ID Richiesta</label><input class="form-inp" id="fi-id_rich" value="${d.id_rich||nn.r}"></div><div class="form-row"><label class="form-lbl">Data</label><input class="form-inp" type="date" id="fi-data" value="${d.data||tod()}"></div></div><div class="form-row"><label class="form-lbl">Cliente *</label><input class="form-inp" id="fi-cliente" value="${d.cliente||''}" placeholder="Nome o azienda"></div><div class="form-row"><label class="form-lbl">Prestazione / Oggetto</label><input class="form-inp" id="fi-prestazione" value="${d.prestazione||''}" placeholder="Es. Perizia, DL, APE..."></div><div class="form-2"><div class="form-row"><label class="form-lbl">Stato</label><select class="form-inp" id="fi-stato">${sel(['Nuova','Aperta','In Lavorazione','Chiusa'],d.stato||'Nuova')}</select></div><div class="form-row"><label class="form-lbl">Priorità</label><select class="form-inp" id="fi-priorita">${sel(['Alta','Media','Bassa'],d.priorita||'Media')}</select></div></div><div class="form-row"><label class="form-lbl">Note</label><textarea class="form-inp" id="fi-note" rows="2">${d.note||''}</textarea></div><div class="form-actions"><button class="btn" onclick="closeForm()">Annulla</button><button class="btn btn-primary" onclick="saveItem()">Salva</button></div>`,
     p:`<div class="modal-ttl">${isEdit?'Modifica':'Nuovo'} Preventivo</div>${preNote}<div class="form-2"><div class="form-row"><label class="form-lbl">ID Preventivo</label><input class="form-inp" id="fi-id_prev" value="${d.id_prev||nn.p}"></div><div class="form-row"><label class="form-lbl">Data invio</label><input class="form-inp" type="date" id="fi-data_invio" value="${d.data_invio||tod()}"></div></div><div class="form-row"><label class="form-lbl">Cliente *</label><input class="form-inp" id="fi-cliente" value="${d.cliente||''}" placeholder="Nome o azienda"></div><div class="form-row"><label class="form-lbl">Prestazione</label><input class="form-inp" id="fi-prestazione" value="${d.prestazione||''}" placeholder="Tipo di lavoro..."></div><div class="form-2"><div class="form-row"><label class="form-lbl">Importo (€)</label><input class="form-inp" type="number" id="fi-importo" value="${d.importo||''}"></div><div class="form-row"><label class="form-lbl">Probabilità (%)</label><input class="form-inp" type="number" id="fi-prob_pct" value="${d.prob_pct||50}" min="0" max="100"></div></div><div class="form-2"><div class="form-row"><label class="form-lbl">Esito</label><select class="form-inp" id="fi-esito">${sel(['In Attesa','Accettato','Rifiutato'],d.esito||'In Attesa')}</select></div><div class="form-row"><label class="form-lbl">ID Richiesta</label><input class="form-inp" id="fi-id_rich" value="${d.id_rich||''}"></div></div><div class="form-row"><label class="form-lbl">Note</label><textarea class="form-inp" id="fi-note" rows="2">${d.note||''}</textarea></div><div class="form-actions"><button class="btn" onclick="closeForm()">Annulla</button><button class="btn btn-primary" onclick="saveItem()">Salva</button></div>`,
     c:`<div class="modal-ttl">${isEdit?'Modifica':'Nuova'} Commessa</div>${preNote}<div class="form-2"><div class="form-row"><label class="form-lbl">ID Commessa</label><input class="form-inp" id="fi-id_comm" value="${d.id_comm||nn.c}"></div><div class="form-row"><label class="form-lbl">Data consegna</label><input class="form-inp" type="date" id="fi-consegna" value="${d.consegna||''}"></div></div><div class="form-row"><label class="form-lbl">Cliente *</label><input class="form-inp" id="fi-cliente" value="${d.cliente||''}" placeholder="Nome o azienda"></div><div class="form-row"><label class="form-lbl">Prestazione</label><input class="form-inp" id="fi-prestazione" value="${d.prestazione||''}" placeholder="Tipo di lavoro..."></div><div class="form-2"><div class="form-row"><label class="form-lbl">Importo (€)</label><input class="form-inp" type="number" id="fi-importo" value="${d.importo||''}"></div><div class="form-row"><label class="form-lbl">Stato</label><select class="form-inp" id="fi-stato">${sel(['In Corso','Completata','Annullata'],d.stato||'In Corso')}</select></div></div><div class="form-row"><label class="form-lbl">ID Preventivo</label><input class="form-inp" id="fi-id_prev" value="${d.id_prev||''}"></div><div class="form-row"><label class="form-lbl">Note</label><textarea class="form-inp" id="fi-note" rows="2">${d.note||''}</textarea></div><div class="form-actions"><button class="btn" onclick="closeForm()">Annulla</button><button class="btn btn-primary" onclick="saveItem()">Salva</button></div>`,
-    f:`<div class="modal-ttl">${isEdit?'Modifica':'Nuova'} Fattura</div>${preNote}<div class="form-2"><div class="form-row"><label class="form-lbl">N. Fattura</label><input class="form-inp" id="fi-num_fatt" value="${d.num_fatt||nn.f}"></div><div class="form-row"><label class="form-lbl">Data emissione</label><input class="form-inp" type="date" id="fi-data_emissione" value="${d.data_emissione||tod()}"></div></div><div class="form-row"><label class="form-lbl">Cliente *</label><input class="form-inp" id="fi-cliente" value="${d.cliente||''}" placeholder="Nome o azienda"></div><div class="form-2"><div class="form-row"><label class="form-lbl">Importo (€)</label><input class="form-inp" type="number" id="fi-importo" value="${d.importo||''}"></div><div class="form-row"><label class="form-lbl">Scad. pagamento</label><input class="form-inp" type="date" id="fi-scadenza_pag" value="${d.scadenza_pag||''}"></div></div><div class="form-2"><div class="form-row"><label class="form-lbl">Stato</label><select class="form-inp" id="fi-stato">${sel(['Da Incassare','Saldata','Sollecitata'],d.stato||'Da Incassare')}</select></div><div class="form-row"><label class="form-lbl">ID Commessa</label><input class="form-inp" id="fi-id_comm" value="${d.id_comm||''}"></div></div><div class="form-row"><label class="form-lbl">Note</label><textarea class="form-inp" id="fi-note" rows="2">${d.note||''}</textarea></div><div class="form-actions"><button class="btn" onclick="closeForm()">Annulla</button><button class="btn btn-primary" onclick="saveItem()">Salva</button></div>`
+    f:`<div class="modal-ttl">${isEdit?'Modifica':'Nuova'} Fattura</div>${preNote}
+      <div class="form-2"><div class="form-row"><label class="form-lbl">N. Fattura</label><input class="form-inp" id="fi-num_fatt" value="${d.num_fatt||nn.f}"></div><div class="form-row"><label class="form-lbl">Data emissione</label><input class="form-inp" type="date" id="fi-data_emissione" value="${d.data_emissione||tod()}"></div></div>
+      <div class="form-row"><label class="form-lbl">Cliente *</label><input class="form-inp" id="fi-cliente" value="${d.cliente||''}" placeholder="Nome o azienda"></div>
+      <div class="form-2"><div class="form-row"><label class="form-lbl">Imponibile (€) *</label><input class="form-inp" type="number" id="fi-importo" value="${d.importo||''}" oninput="calcTotFattura()"></div><div class="form-row"><label class="form-lbl">Scad. pagamento</label><input class="form-inp" type="date" id="fi-scadenza_pag" value="${d.scadenza_pag||''}"></div></div>
+      <div class="form-2">
+        <div class="form-row"><label class="form-lbl">Cassa previdenziale</label><select class="form-inp" id="fi-cassa" onchange="calcTotFattura()">${sel(['4','2','0'],String(d.cassa_pct||4))}<option value="0">Nessuna</option></select></div>
+        <div class="form-row"><label class="form-lbl">IVA (%)</label><select class="form-inp" id="fi-iva" onchange="calcTotFattura()">${sel(['22','10','4','0'],String(d.iva_pct||22))}</select></div>
+      </div>
+      <div class="form-2">
+        <div class="form-row"><label class="form-lbl">Ritenuta d'acconto</label><select class="form-inp" id="fi-ritenuta" onchange="calcTotFattura()">${sel(['0','20'],String(d.rit_pct||0))}<option value="0">Nessuna</option></select></div>
+        <div class="form-row"><label class="form-lbl">Stato</label><select class="form-inp" id="fi-stato">${sel(['Da Incassare','Saldata','Sollecitata'],d.stato||'Da Incassare')}</select></div>
+      </div>
+      <div class="tot-box" id="tot-preview">
+        <div class="tot-row"><span>Imponibile</span><span id="tp-imp">€ 0,00</span></div>
+        <div class="tot-row"><span>Cassa prev.</span><span id="tp-cassa">€ 0,00</span></div>
+        <div class="tot-row"><span>IVA</span><span id="tp-iva">€ 0,00</span></div>
+        <div class="tot-row" id="tp-rit-row"><span>Ritenuta</span><span id="tp-rit">- € 0,00</span></div>
+        <div class="tot-finale"><span>Totale fattura</span><span id="tp-tot" style="color:#10b981">€ 0,00</span></div>
+      </div>
+      <div class="form-row"><label class="form-lbl">ID Commessa</label><input class="form-inp" id="fi-id_comm" value="${d.id_comm||''}"></div>
+      <div class="form-row"><label class="form-lbl">Note</label><textarea class="form-inp" id="fi-note" rows="2">${d.note||''}</textarea></div>
+      <div class="form-actions"><button class="btn" onclick="closeForm()">Annulla</button><button class="btn btn-primary" onclick="saveItem()">Salva</button></div>`
   };
-  document.getElementById('form-box').innerHTML=forms[k];
+  forms.a=`<div class="modal-ttl">${isEdit?'Modifica':'Nuova'} Attività</div>
+    <div class="form-2"><div class="form-row"><label class="form-lbl">ID Attività</label><input class="form-inp" id="fi-id_att" value="${d.id_att||nn.a}"></div><div class="form-row"><label class="form-lbl">Scadenza</label><input class="form-inp" type="date" id="fi-scadenza" value="${d.scadenza||''}"></div></div>
+    <div class="form-row"><label class="form-lbl">Titolo *</label><input class="form-inp" id="fi-titolo" value="${d.titolo||''}" placeholder="Es. Rata Inarcassa Q1, Versamento IVA..."></div>
+    <div class="form-2"><div class="form-row"><label class="form-lbl">Categoria</label><select class="form-inp" id="fi-categoria">${sel(['Inarcassa','Fisco','Amministrazione','Altro'],d.categoria||'Altro')}</select></div><div class="form-row"><label class="form-lbl">Stato</label><select class="form-inp" id="fi-stato">${sel(['Da fare','Fatto'],d.stato||'Da fare')}</select></div></div>
+    <div class="form-row"><label class="form-lbl">Note</label><textarea class="form-inp" id="fi-note" rows="2">${d.note||''}</textarea></div>
+    <div class="form-actions"><button class="btn" onclick="closeForm()">Annulla</button><button class="btn btn-primary" onclick="saveItem()">Salva</button></div>`;
+    document.getElementById('form-box').innerHTML=forms[k];
   document.getElementById('form-ov').classList.add('open');
   curSec={r:'richieste',p:'preventivi',c:'commesse',f:'fatture'}[k]||curSec;
 }
@@ -561,10 +642,21 @@ function showForm(k,d,isNew){
 window.saveItem=async function(){
   const k=editSec;const cliente=v('fi-cliente');if(!cliente){alert('Cliente obbligatorio');return}
   let obj={};
-  if(k==='r')obj={id_rich:v('fi-id_rich'),data:v('fi-data'),cliente,prestazione:v('fi-prestazione'),stato:v('fi-stato'),priorita:v('fi-priorita'),note:v('fi-note')};
+  if(k==='a'){}else if(k==='r')obj={id_rich:v('fi-id_rich'),data:v('fi-data'),cliente,prestazione:v('fi-prestazione'),stato:v('fi-stato'),priorita:v('fi-priorita'),note:v('fi-note')};
   else if(k==='p')obj={id_prev:v('fi-id_prev'),data_invio:v('fi-data_invio'),cliente,prestazione:v('fi-prestazione'),importo:v('fi-importo'),prob_pct:v('fi-prob_pct'),esito:v('fi-esito'),id_rich:v('fi-id_rich'),note:v('fi-note')};
   else if(k==='c')obj={id_comm:v('fi-id_comm'),consegna:v('fi-consegna'),cliente,prestazione:v('fi-prestazione'),importo:v('fi-importo'),stato:v('fi-stato'),id_prev:v('fi-id_prev'),note:v('fi-note')};
-  else if(k==='f')obj={num_fatt:v('fi-num_fatt'),data_emissione:v('fi-data_emissione'),cliente,importo:v('fi-importo'),scadenza_pag:v('fi-scadenza_pag'),stato:v('fi-stato'),id_comm:v('fi-id_comm'),note:v('fi-note')};
+  else if(k==='f'){
+    const imp=parseFloat(v('fi-importo').replace(',','.')||0);
+    const iva_pct=parseFloat(v('fi-iva')||22);
+    const cassa_pct=parseFloat(v('fi-cassa')||4);
+    const rit_pct=parseFloat(v('fi-ritenuta')||0);
+    const cassa=Math.round(imp*cassa_pct)/100;
+    const imponibile_iva=imp+cassa;
+    const iva=Math.round(imponibile_iva*iva_pct)/100;
+    const ritenuta=Math.round(imp*rit_pct)/100;
+    const totale=imponibile_iva+iva-ritenuta;
+    obj={num_fatt:v('fi-num_fatt'),data_emissione:v('fi-data_emissione'),cliente,importo:imp,iva_pct,cassa_pct,rit_pct,cassa,iva,ritenuta,totale,scadenza_pag:v('fi-scadenza_pag'),stato:v('fi-stato'),id_comm:v('fi-id_comm'),note:v('fi-note')};
+  } else if(k==='a')obj={id_att:v('fi-id_att'),titolo:v('fi-titolo'),categoria:v('fi-categoria'),scadenza:v('fi-scadenza'),stato:v('fi-stato')||'Da fare',note:v('fi-note'),da_gmail:false};
   window.closeForm();
   if(editIdx!==null)await updateItem(k,DB[k][editIdx]._id,obj);else await addItem(k,obj);
 };
@@ -734,3 +826,89 @@ startListeners=startListeners;
 </script>
 </body>
 </html>
+<script type="module">
+// PATCH AGGIUNTIVA - funzioni nuove
+// calcTotFattura
+window.calcTotFattura = function(){
+  const imp = parseFloat(document.getElementById('fi-importo')?.value || 0);
+  const cassa_pct = parseFloat(document.getElementById('fi-cassa')?.value || 4);
+  const iva_pct = parseFloat(document.getElementById('fi-iva')?.value || 22);
+  const rit_pct = parseFloat(document.getElementById('fi-ritenuta')?.value || 0);
+  const fe2 = n => '€ '+Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const cassa = Math.round(imp * cassa_pct) / 100;
+  const imponibile_iva = imp + cassa;
+  const iva = Math.round(imponibile_iva * iva_pct) / 100;
+  const ritenuta = Math.round(imp * rit_pct) / 100;
+  const totale = imponibile_iva + iva - ritenuta;
+  const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  set('tp-imp', fe2(imp));
+  set('tp-cassa', fe2(cassa));
+  set('tp-iva', fe2(iva));
+  set('tp-rit', '- ' + fe2(ritenuta));
+  set('tp-tot', fe2(totale));
+  const ritRow = document.getElementById('tp-rit-row');
+  if(ritRow) ritRow.style.display = rit_pct > 0 ? 'flex' : 'none';
+};
+
+// renderAttivita
+window.renderAttivita = function(){
+  const el = document.getElementById('list-a');
+  if(!el) return;
+  if(!window.DB || !window.DB.a) return;
+  const now = new Date(); now.setHours(0,0,0,0);
+  const catFilter = document.getElementById('att-filter-cat')?.value || '';
+  const statoFilter = document.getElementById('att-filter-stato')?.value || '';
+  let items = window.DB.a;
+  if(catFilter) items = items.filter(x => x.categoria === catFilter);
+  if(statoFilter) items = items.filter(x => x.stato === statoFilter);
+  items = [...items].sort((a,b) => {
+    if(!a.scadenza) return 1; if(!b.scadenza) return -1;
+    return new Date(a.scadenza) - new Date(b.scadenza);
+  });
+  if(!items.length){ el.innerHTML = '<div class="empty">Nessuna attività</div>'; return; }
+  const pillClass2 = {'Inarcassa':'p-inarcassa','Fisco':'p-fisco','Amministrazione':'p-amm','Altro':'p-altro','Da fare':'p-prossima','Fatto':'p-fatto'};
+  el.innerHTML = items.map((a, i) => {
+    const idx = window.DB.a.indexOf(a);
+    const diff = a.scadenza ? Math.round((new Date(a.scadenza) - now) / 86400000) : null;
+    const col = a.stato === 'Fatto' ? '#94a3b8' : diff === null ? '#94a3b8' : diff < 0 ? '#ef4444' : diff <= 7 ? '#f59e0b' : '#10b981';
+    const scadLbl = a.stato === 'Fatto' ? 'Completata' : diff === null ? '' : diff < 0 ? `Scaduta da ${Math.abs(diff)}g` : diff === 0 ? 'Scade oggi' : `tra ${diff}g`;
+    const scadPill = a.stato === 'Fatto' ? '' : diff !== null && diff < 0 ? '<span class="pill p-scaduta">Scaduta</span>' : diff !== null && diff <= 7 ? '<span class="pill p-prossima">In scadenza</span>' : '';
+    const isDone = a.stato === 'Fatto';
+    const gmailBadge = a.da_gmail ? '<span class="gmail-badge">Gmail</span>' : '';
+    return `<div class="att-item" id="ai-${idx}">
+      <button class="check-btn ${isDone?'done':''}" onclick="toggleAtt(${idx})" title="${isDone?'Segna da fare':'Segna fatto'}">
+        ${isDone?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}
+      </button>
+      <div class="att-dot" style="background:${col}"></div>
+      <div class="att-info" style="${isDone?'opacity:.55':''}">
+        <div class="att-nome" style="${isDone?'text-decoration:line-through':''}">${a.titolo||'—'} <span style="font-size:11px;color:#94a3b8;font-weight:400">${a.id_att||''}</span>${gmailBadge}</div>
+        <div class="att-sub">${a.scadenza?'Scadenza: '+window.fdGlobal(a.scadenza)+(scadLbl?' · '+scadLbl:''):''} ${a.note?'· '+a.note:''}</div>
+      </div>
+      <div class="att-right">
+        <span class="pill ${pillClass2[a.categoria]||'p-altro'}">${a.categoria||'Altro'}</span>
+        ${scadPill}
+        <button class="btn-icon" onclick="window.openEdit('a',${idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4z"/></svg></button>
+        <button class="btn-icon" onclick="window.del('a','${a._id}')"><svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg></button>
+      </div>
+    </div>`;
+  }).join('');
+};
+
+// toggle attivita fatto/da fare
+window.toggleAtt = async function(idx){
+  if(!window.DB || !window.DB.a[idx]) return;
+  const a = window.DB.a[idx];
+  const newStato = a.stato === 'Fatto' ? 'Da fare' : 'Fatto';
+  await window.updateItemGlobal('a', a._id, {stato: newStato});
+};
+
+// esporta fd globale per uso in renderAttivita
+window.fdGlobal = function(d){
+  if(!d) return '—';
+  const p = String(d).split('-');
+  return p.length===3 ? p[2]+'/'+p[1]+'/'+p[0] : d;
+};
+
+// Esponi updateItem globalmente
+window.updateItemGlobal = window.updateItemGlobal || function(){};
+</script>
