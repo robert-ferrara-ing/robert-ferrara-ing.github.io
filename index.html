@@ -428,11 +428,11 @@ window.goSec=function(s,el){
   document.getElementById('add-btn').style.display=hasAdd?'flex':'none';
   document.getElementById('export-btn').style.display=hasExport?'flex':'none';
   if(s==='dashboard')renderDash();
-  else if(s==='statistiche')renderStats();
+  else if(s==='statistiche')window.renderStats ? window.renderStats() : renderStats();
   else if(s==='richieste')renderR();
-  else if(s==='preventivi')renderP();
-  else if(s==='commesse')renderC();
-  else if(s==='fatture')renderF();
+  else if(s==='preventivi')window.renderP ? window.renderP() : renderP();
+  else if(s==='commesse')window.renderC ? window.renderC() : renderC();
+  else if(s==='fatture')window.renderF ? window.renderF() : renderF();
   else if(s==='scadenze')renderS();
   else if(s==='clienti')renderClienti();
   if(window.innerWidth<=700)closeSb();
@@ -639,7 +639,7 @@ function getAnniFromDB(k, campoData){
   return [...anni].sort();
 }
 
-function buildYearBar(barId, k, campoData, selKey, onchange){
+window.buildYearBar = function buildYearBar(barId, k, campoData, selKey, onchange){
   const el = document.getElementById(barId);
   if(!el) return;
   const anni = getAnniFromDB(k, campoData);
@@ -659,7 +659,7 @@ function buildYearBar(barId, k, campoData, selKey, onchange){
   });
 }
 
-function filterByAnno(items, campo, anno){
+window.filterByAnno = function filterByAnno(items, campo, anno){
   if(anno==='all') return items;
   return items.filter(r => r[campo] && String(r[campo]).substring(0,4) === String(anno));
 }
@@ -733,4 +733,4 @@ window.renderStats = function(){
 startListeners=startListeners;
 </script>
 </body>
-</html> 
+</html>
